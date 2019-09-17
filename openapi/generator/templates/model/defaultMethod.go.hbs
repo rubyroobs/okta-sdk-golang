@@ -26,7 +26,7 @@ func (m *{{modelName}}Resource) {{ucFirst operation.operationId}}({{operationArg
 	{{#if (ne operation.isArray undefined)}}
 	{{#if (responseModelInterface operation.operationId) }}
 	{{#if (eq operation.operationId "listApplications") }}
-	var {{lowercaseFirstLetter operation.responseModel}} []App
+	var {{lowercaseFirstLetter operation.responseModel}} []*Application
 	{{else if (eq operation.operationId "listFactors") }}
 	var {{lowercaseFirstLetter operation.responseModel}} []UserFactor
 	{{else}}
@@ -52,7 +52,15 @@ func (m *{{modelName}}Resource) {{ucFirst operation.operationId}}({{operationArg
 	if err != nil {
 		return nil, resp, err
 	}
+	{{#if (eq operation.operationId "listApplications") }}
+        var appList []App
+	for _, app := range application {
+		appList = append(appList, app)
+	}
+	return appList, resp, nil
+	{{else}}
 	return {{lowercaseFirstLetter operation.responseModel}}, resp, nil
+        {{/if}}
 	{{else}}
 	resp, err := m.client.requestExecutor.Do(req, nil)
 	if err != nil {
