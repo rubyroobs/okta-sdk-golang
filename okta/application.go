@@ -111,14 +111,14 @@ func (m *ApplicationResource) ListApplications(qp *query.Params) ([]App, *Respon
 		return nil, nil, err
 	}
 
-	var application []*Application
+	var application []interface{}
 	resp, err := m.client.requestExecutor.Do(req, &application)
 	if err != nil {
 		return nil, resp, err
 	}
 	var appList []App
 	for _, app := range application {
-		appList = append(appList, app)
+		appList = append(appList, app.(App))
 	}
 	return appList, resp, nil
 }
