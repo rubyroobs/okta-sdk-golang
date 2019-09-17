@@ -205,11 +205,7 @@ function returnType(operation) {
   if ( operation.responseModel !== undefined ) {
     let responseModel = "*" +operation.responseModel
     if ( responseModel === "*Application" ) {
-      if ( operation.operationId === "listApplications") {
-        responseModel = "App"
-      } else {
-        responseModel = "interface{}"
-      }
+      responseModel = "interface{}"
     }
     if ( responseModel === "*Factor" ) {
       if ( operation.operationId === "listFactors") {

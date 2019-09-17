@@ -101,7 +101,7 @@ func (m *ApplicationResource) DeleteApplication(appId string) (*Response, error)
 	}
 	return resp, nil
 }
-func (m *ApplicationResource) ListApplications(qp *query.Params) ([]App, *Response, error) {
+func (m *ApplicationResource) ListApplications(qp *query.Params) ([]interface{}, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps")
 	if qp != nil {
 		url = url + qp.String()
@@ -116,11 +116,7 @@ func (m *ApplicationResource) ListApplications(qp *query.Params) ([]App, *Respon
 	if err != nil {
 		return nil, resp, err
 	}
-	var appList []App
-	for _, app := range application {
-		appList = append(appList, app.(App))
-	}
-	return appList, resp, nil
+	return application, resp, nil
 }
 func (m *ApplicationResource) CreateApplication(body App, qp *query.Params) (interface{}, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps")
