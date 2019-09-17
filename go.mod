@@ -1,4 +1,4 @@
-module github.com/okta/okta-sdk-golang
+module github.com/rubyroobs/okta-sdk-golang
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
